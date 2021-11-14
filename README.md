@@ -1,11 +1,11 @@
 
-# c_starter_template
+# cpp_starter_template
 
-This is a template project to have as a base for new projects based on the C programming language
+This is a template project to have as a base for new projects based on the C++ programming language
 
 ## Tools used by this project
 
-GCC
+G++
 Make
-CMocka
+GTest
 
