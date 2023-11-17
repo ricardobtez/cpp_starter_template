@@ -1,5 +1,5 @@
 
-#include "example.h"
+#include "example.hpp"
 
 int main()
 {
@@ -7,3 +7,4 @@ int main()
     ex.exampleFunction();
     return 0;
 }
+

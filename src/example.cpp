@@ -1,8 +1,9 @@
 
-#include <iostream>
-#include "example.h"
+#include <fmt/core.h>
+#include "example.hpp"
 
 void Example::exampleFunction()
 {
-    std::cout << "Hello World" << std::endl;
+    fmt::println("Hello World");
 }
+
