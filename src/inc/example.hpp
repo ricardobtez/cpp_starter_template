@@ -1,11 +1,9 @@
 #ifndef EXAMPLE_HPP
 #define EXAMPLE_HPP
 
-
-class Example
-{
-public:
-    void exampleFunction();
+class Example {
+ public:
+  void exampleFunction();
 };
 
 #endif /* EXAMPLE_HPP */

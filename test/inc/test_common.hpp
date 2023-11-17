@@ -4,4 +4,3 @@
 #include "gtest/gtest.h"
 
 #endif /* TEST_COMMON_H */
-

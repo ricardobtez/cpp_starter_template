@@ -1,9 +1,7 @@
 
-#include <fmt/core.h>
 #include "example.hpp"
+#include <fmt/core.h>
 
-void Example::exampleFunction()
-{
-    fmt::println("Hello World");
+void Example::exampleFunction() {
+  fmt::println("Hello World");
 }
-
