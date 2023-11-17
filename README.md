@@ -5,7 +5,8 @@ This is a template project to have as a base for new projects based on the C++ p
 
 ## Tools used by this project
 
-G++
-Make
+g++/clang++
+conan2
+CMake
 GTest
 
