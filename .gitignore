@@ -3,3 +3,4 @@ bin/
 *.o
 cmake-build-*
 CMakeUserPresets.json
+.idea/
