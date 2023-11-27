@@ -1,0 +1,66 @@
+name: Build with conan
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+env:
+  # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
+  BUILD_TYPE: Release
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: true
+
+      matrix:
+        os: [ubuntu-latest]
+        build_type: [Release]
+        c_compiler: [gcc, clang]
+        include:
+          - os: ubuntu-latest
+            c_compiler: gcc
+            cpp_compiler: g++
+          - os: ubuntu-latest
+            c_compiler: clang
+            cpp_compiler: clang++
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Set reusable strings
+      # Turn repeated input strings (such as the build output directory) into step outputs. These step outputs can be used throughout the workflow file.
+      id: strings
+      shell: bash
+      run: |
+        echo "build-output-dir=${{ github.workspace }}/cmake-build-release" >> "$GITHUB_OUTPUT"
+
+    - name: Get conan
+      uses: turtlebrowser/get-conan@main
+
+    - name: Configure default conan profile
+      shell: bash
+      run: conan profile detect
+
+    - name: Get conan dependencies
+      id: conan-install
+      shell: bash
+      run: |
+        conan install . --output-folder=${{ steps.strings.outputs.build-output-dir }} --build missing 
+
+    - name: Configure CMake
+      run: >
+        cmake -B ${{ steps.strings.outputs.build-output-dir }} -DCMAKE_TOOLCHAIN_FILE=${{ steps.strings.outputs.build-output-dir }}/conan_toolchain.cmake -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
+
+    - name: Build
+      # Build your program with the given configuration
+      run: cmake --build ${{ steps.strings.outputs.build-output-dir }} --config ${{env.BUILD_TYPE}}
+
+    - name: Test
+      working-directory: ${{ steps.strings.outputs.build-output-dir }}
+      run: ctest -C ${{env.BUILD_TYPE}}
+
